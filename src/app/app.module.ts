@@ -7,14 +7,11 @@ import { UserInputComponent } from './user-input/user-input.component';
 import { InvestmentResultsComponent } from './investment-results/investment-results.component';
 
 @NgModule({
-  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HeaderComponent,
     UserInputComponent,
     InvestmentResultsComponent,
   ],
-  providers: [],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
