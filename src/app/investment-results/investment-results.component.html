@@ -7,12 +7,14 @@
     <th>Invested Capital</th>
   </thead>
   <tbody>
+    @for (yearData of calculatedReturns(); track $index) {
     <tr>
-      <td>1</td>
-      <td>10,700.00</td>
-      <td>$600</td>
-      <td>$600</td>
-      <td>$10,100.00</td>
+      <td>{{ yearData.year }}</td>
+      <td>{{ yearData.investmentValue }}</td>
+      <td>${{ yearData.interest }}</td>
+      <td>${{ yearData.totalInterest }}</td>
+      <td>${{ yearData.investedCapital }}</td>
     </tr>
+    }
   </tbody>
 </table>

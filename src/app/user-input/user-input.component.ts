@@ -14,21 +14,21 @@ export class UserInputComponent {
   public expectedReturnInput: string = '';
   public durationInput: string = '';
 
-  public initialInvestmentSignal = output<string>();
-  public annualInvestmentSignal = output<string>();
-  public expectedReturnSignal = output<string>();
-  public durationSignal = output<string>();
+  public initialInvestmentSignal = output<number>();
+  public annualInvestmentSignal = output<number>();
+  public expectedReturnSignal = output<number>();
+  public durationSignal = output<number>();
 
-  public onInitialInvestmentChange() {
-    this.initialInvestmentSignal.emit(this.initialInvestmentInput);
+  public onInitialInvestmentChange(): void {
+    this.initialInvestmentSignal.emit(+this.initialInvestmentInput);
   }
-  public annualInvestmentChange() {
-    this.annualInvestmentSignal.emit(this.annualInvestmentInput);
+  public onAnnualInvestmentChange(): void {
+    this.annualInvestmentSignal.emit(+this.annualInvestmentInput);
   }
-  public expectedReturnChange() {
-    this.expectedReturnSignal.emit(this.expectedReturnInput);
+  public onExpectedReturnChange(): void {
+    this.expectedReturnSignal.emit(+this.expectedReturnInput);
   }
-  public durationChange() {
-    this.durationSignal.emit(this.durationInput);
+  public onDurationChange(): void {
+    this.durationSignal.emit(+this.durationInput);
   }
 }
