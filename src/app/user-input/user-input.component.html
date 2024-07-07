@@ -5,6 +5,7 @@
       <input
         type="number"
         name="initial-investment"
+        placeholder="10000"
         [(ngModel)]="initialInvestmentInput"
         (input)="onInitialInvestmentChange()"
       />
@@ -14,6 +15,7 @@
       <input
         type="number"
         name="annual-investment"
+        placeholder="10000"
         [(ngModel)]="annualInvestmentInput"
         (input)="onAnnualInvestmentChange()"
       />
@@ -25,6 +27,7 @@
       <input
         type="number"
         name="expected-return"
+        placeholder="10"
         [(ngModel)]="expectedReturnInput"
         (input)="onExpectedReturnChange()"
       />
@@ -34,10 +37,11 @@
       <input
         type="number"
         name="duration"
+        placeholder="10"
         [(ngModel)]="durationInput"
         (input)="onDurationChange()"
       />
     </div>
   </div>
-  <button>Calculate</button>
+  <!-- <button>Calculate</button> -->
 </form>

@@ -10,10 +10,10 @@
     @for (yearData of calculatedReturns(); track $index) {
     <tr>
       <td>{{ yearData.year }}</td>
-      <td>{{ yearData.investmentValue }}</td>
-      <td>${{ yearData.interest }}</td>
-      <td>${{ yearData.totalInterest }}</td>
-      <td>${{ yearData.investedCapital }}</td>
+      <td>{{ yearData.investmentValue | number : "1.0-0" : "pl" }}</td>
+      <td>${{ yearData.interest | number : "1.0-2" : "pl" }}</td>
+      <td>${{ yearData.totalInterest | number : "1.0-2" : "pl" }}</td>
+      <td>${{ yearData.investedCapital | number : "1.0-0" : "pl" }}</td>
     </tr>
     }
   </tbody>

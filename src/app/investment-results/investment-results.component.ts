@@ -1,32 +1,37 @@
-import { Component, computed, input } from '@angular/core';
+import { DecimalPipe, registerLocaleData } from '@angular/common';
+import { Component, input } from '@angular/core';
+import localePl from '@angular/common/locales/pl';
+
+registerLocaleData(localePl, 'pl');
 
 @Component({
   selector: 'app-investment-results',
+  imports: [DecimalPipe],
   standalone: true,
   templateUrl: './investment-results.component.html',
   styleUrls: ['./investment-results.component.scss'],
 })
 export class InvestmentResultsComponent {
-  public years = input<number>(5);
-  public initialInvestment = input<number>(0);
-  public annualInvestment = input<number>(0);
-  public expectedReturn = input<number>(0);
+  public years = input<number>(100);
+  public initialInvestment = input<number>(10000);
+  public annualInvestment = input<number>(10000);
+  public expectedReturn = input<number>(10);
 
-  private calculateInterestForTheInvestmentYear(year: number): number {
+  private calculateInterestForTheInvestmentYear(
+    investmentValue: number
+  ): number {
+    return investmentValue * (this.expectedReturn() / 100);
+  }
+
+  private calculateTotalInterestForYear(
+    year: number,
+    investmentValue: number
+  ): number {
     return (
-      ((this.initialInvestment() * (1 + this.expectedReturn() / 100)) ^ year) -
+      investmentValue -
+      this.annualInvestment() * year -
       this.initialInvestment()
     );
-  }
-
-  private calculateInvestmentValueForYear(year: number): number {
-    return (
-      (this.initialInvestment() * (1 + this.expectedReturn() / 100)) ^ year
-    );
-  }
-
-  private calculateTotalInterestForYear(year: number): number {
-    return this.initialInvestment() * (this.expectedReturn() / 100) * year;
   }
 
   private calculateInvestedCapitalForYear(year: number): number {
@@ -47,12 +52,21 @@ export class InvestmentResultsComponent {
       totalInterest: number;
       investedCapital: number;
     }> = [];
-    for (let index: number = 1; index <= +this.years(); index++) {
+    let investmentValue: number = this.initialInvestment();
+
+    for (let index: number = 1; index <= this.years(); index++) {
+      const interestEarnedInTheYear: number =
+        this.calculateInterestForTheInvestmentYear(investmentValue);
+      investmentValue += interestEarnedInTheYear + this.annualInvestment();
+
       investmentReturnsDataArray.push({
         year: index,
-        interest: this.calculateInterestForTheInvestmentYear(index),
-        investmentValue: this.calculateInvestmentValueForYear(index),
-        totalInterest: this.calculateTotalInterestForYear(index),
+        interest: interestEarnedInTheYear,
+        investmentValue: investmentValue,
+        totalInterest: this.calculateTotalInterestForYear(
+          index,
+          investmentValue
+        ),
         investedCapital: this.calculateInvestedCapitalForYear(index),
       });
     }
